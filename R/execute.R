@@ -106,7 +106,7 @@ execute_linear <- function(multiverse, parallel, progress) {
     app = lapply
   }
   
-  .res <- app(seq_along(.code_list), execute_linear_universe, .code_list, .env_list)
+  .res <- app(seq_along(.code_list), execute_linear_universe, .code_list, .env_list, .options=furrr::furrr_options(seed=TRUE))
   
   handle_results_and_envs(.res, .env_list)
   .error_messages = handle_errors(.res)
@@ -154,7 +154,7 @@ exec_all <- function(list_block_exprs, current, progressbar, steps, in_parallel)
     app = lapply
   }
   
-  .res <- app(seq_along(.code_list), execute_each, .code_list, .env_list, progressbar, current, steps)
+  .res <- app(seq_along(.code_list), execute_each, .code_list, .env_list, progressbar, current, steps, .options=furrr::furrr_options(seed=TRUE))
   
   handle_results_and_envs(.res, .env_list)
   .error_messages = handle_errors(.res)
